@@ -64,9 +64,6 @@
            <input type="submit" name="boton" value="BORRAR"></input>
         </select>           
        </form>
-
-       
-       
         <?php
            
             } else {
@@ -95,13 +92,9 @@
                 $borrado = "DELETE FROM empleados WHERE DNI=".$_POST["borrar"];
                 $result = mysqli_query($conn, $borrado);
                 header('Location:http://18.223.161.172/form/89/index.php ');
-                
+               
          }
             }
-            
-                
-            
-       
         ?>
        
     </body>

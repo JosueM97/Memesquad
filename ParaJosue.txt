@@ -1,0 +1,108 @@
+<html>
+    <body>
+        <?php
+       
+       
+                $servidor = "localhost"; 
+                $username = "root";
+                $password = "root";
+                $basedatos = "prueba";
+                
+                $conn = mysqli_connect($servidor, $username, $password, $basedatos);
+    
+                if (!$conn) {
+                    die("Conexi&ocacuten fallida: " . mysqli_connect_error());
+                }
+                
+ 
+           
+            if ( !isset ( $_POST["boton"] ) ) {
+        ?>   
+   
+        <form action="index.php" method="POST">
+        <input type="hidden" name="action" value="crear"/>
+            
+            Introduzca su nombre:
+            <br>
+            <input type="text" name="nombre">
+            <br>
+            
+            Introduzca su sueldo:
+            <br>
+            <input type="number" name="sueldo">
+            <br>
+
+            
+            <input type="submit" name="boton" value="enviar">
+        </form>
+        <br>
+       
+       Seleccion de empleados
+       <form action =index.php method="POST">
+            <input type="hidden" name="action" value="borrar"/>
+           <?php
+           
+           $servidor = "localhost"; 
+                $username = "root";
+                $password = "root";
+                $basedatos = "prueba";
+                
+                $conn = mysqli_connect($servidor, $username, $password, $basedatos);
+    
+                if (!$conn) {
+                    die("Conexi&ocacuten fallida: " . mysqli_connect_error());
+                }
+          
+             $cons = "SELECT DNI,nombre FROM empleados;";
+             $result = mysqli_query($conn, $cons);
+            echo("<select name='borrar'>");
+                while($fila=mysqli_fetch_array($result)){
+                    echo("<option value=".$fila["DNI"].">".$fila["nombre"]."</option>");
+                }
+            echo("</select>");    
+           ?>
+           <input type="submit" name="boton" value="BORRAR"></input>
+        </select>           
+       </form>
+
+       
+       
+        <?php
+           
+            } else {
+   
+   
+            if($_POST["action"] == "crear"){
+               
+                
+                $cons = "SELECT DNI FROM empleados ORDER BY DNI DESC LIMIT 1;";
+                $result = mysqli_query($conn, $cons);
+                
+                while($fila = mysqli_fetch_array($result)){
+                    
+                    $id = $fila[0] + 1;
+                    $nombre = $_POST['nombre'];
+                    $sueldo = $_POST['sueldo'];
+                    
+                    $colocar = "INSERT INTO empleados (DNI, nombre, sueldo) VALUES ('$id', '$nombre', '$sueldo');";
+                    $inserccion = mysqli_query($conn, $colocar);
+                    header('Location:http://18.223.161.172/form/89/index.php ');
+                }
+                
+            }
+            
+         if($_POST["action"] == "borrar"){
+                $borrado = "DELETE FROM empleados WHERE DNI=".$_POST["borrar"];
+                $result = mysqli_query($conn, $borrado);
+                header('Location:http://18.223.161.172/form/89/index.php ');
+                
+         }
+            }
+            
+                
+            
+       
+        ?>
+       
+    </body>
+</html>

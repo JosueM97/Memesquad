@@ -99,3 +99,37 @@
        
     </body>
 </html>
+
+------------------------------------------------------
+
+<html>
+  
+    <body>
+        <?php
+          
+          
+           $name="micookie";
+           $value=7; # Podría ser una cadena de texto
+           $expires=time()+60; # 60 segundos después del momento actual
+           $path="/";
+           $domain="";
+           $secure=false;
+           $HttpOnly=true;
+          
+           # Es preciso asegurarse de llamar a setcookie() antes de enviar
+           # ninguna otra salida al navegador
+           setcookie ($name,$value,$expires,$path,$domain,$secure,$HttpOnly);
+          
+           echo ("Cookie enviada" . "<br/>");
+           
+        
+            echo "El valor de la cookie es: ";
+            echo $_COOKIE["micookie"];
+           
+          
+                                    
+        ?>
+       
+    </body>
+   
+</html>
